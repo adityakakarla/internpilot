@@ -1,38 +1,93 @@
-# sv
+# Internpilot
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Internpilot is a web application that helps users find YC-backed startups to work for.
 
-## Creating a project
+It provides a simple search interface and displays detailed information about each startup, including batch information, company size, sector, and more.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Overview
 
-```bash
-# create a new project in the current directory
-npx sv create
+Startups are the best place to learn, and Internpilot makes it easy to discover opportunities at YC-backed companies. This application features:
 
-# create a new project in my-app
-npx sv create my-app
-```
+- Search functionality to find startups based on keywords
+- Filtering options by batch, sector, and status
+- Detailed startup cards with company information
+- Links to company websites
 
-## Developing
+## Technology Stack
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+- Frontend: Svelte + TailwindCSS
+- Backend: SvelteKit Form Actions
+- AI: OpenAI + Pinecone
 
-```bash
-npm run dev
+## Getting Started
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+### Prerequisites
 
-## Building
+- Node.js (v16+)
+- npm or yarn
 
-To create a production version of your app:
+### Installation
 
-```bash
-npm run build
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/adityakakarla/internpilot.git
+   cd internpilot
+   ```
 
-You can preview the production build with `npm run preview`.
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+3. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173`
+
+## Cool Stuff
+
+### Search
+
+Fetching results is a multi-step process:
+1. We make sure users didn't put anything bad in their queries using OpenAI's moderation API
+2. We convert the user's query to a vector embedding (a bunch of numbers telling us what the user wants to know)
+3. We match the query's embedding to our database of YC startups (updated February 24, 2025) to find the 10 closest matching companies
+4. We process and display the search results to the user
+
+### Startup Cards
+
+Each startup is displayed as a card containing:
+- Company name
+- YC batch
+- Sector
+- Team size
+- Summary
+- Tags
+- Website link
+
+The UI was built almost entirely with Claude 3.7 Sonnet with minor edits.
+
+### Data
+
+We sourced the data from [a public spreadsheet of YC companies](https://docs.google.com/spreadsheets/d/181GQmXflgMCCI9awLbzK4Zf0uneQBKoh51wBjNTc8Us/edit?gid=0#gid=0).
+
+After initial data cleaning steps using Pandas and Numpy, we had a list of companies as Python dictionaries.
+
+We ran into some challenges: we wanted to bulk-calculate embeddings, but we kept hitting limits. We ended up chunking content into separate requests to bypass this.
+
+Eventually, we had all our data in place. We uploaded everything to our Pinecone vector database.
+
+## Acknowledgments
+
+- Y Combinator for fostering an amazing startup ecosystem
+- All the startups who make their information available
+
+## Contact
+
+If you have any questions or feedback, please reach out.
