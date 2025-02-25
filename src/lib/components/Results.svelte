@@ -31,7 +31,7 @@
             </div>
           </div>
           
-          <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">{match.summary}</p>
+          <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">{match.short_summary}</p>
           
           <div class="flex flex-wrap gap-2">
             {#each match.tags.split(',') as tag}

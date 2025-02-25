@@ -24,3 +24,5 @@ vite.config.ts.timestamp-*
 
 seed.ipynb
 companies.csv
+
+yc_essential_data.csv
