@@ -15,13 +15,8 @@
               </svg>
             </a>
           </div>
-          {#if match?.source}
-          <p>Source: {match.source}</p>
-          {:else if match?.batch}
-          <p>Source: Y Combinator {match.batch}</p>
-          {/if}
           
-          <!-- <div class="flex flex-wrap gap-4 mb-4">
+          <div class="flex flex-wrap gap-4 mb-4">
             <div class="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
               <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Batch</p>
               <p class="font-medium text-black dark:text-white">{match.batch}</p>
@@ -34,15 +29,15 @@
               <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Size</p>
               <p class="font-medium text-black dark:text-white">{match.size}</p>
             </div>
-          </div> -->
+          </div>
           
           <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">{match.short_summary}</p>
           
-          <!-- <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-2">
             {#each match.tags.split(',') as tag}
               <span class="px-2 py-1 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200 text-xs font-medium rounded-full">{tag.trim()}</span>
             {/each}
-          </div> -->
+          </div>
         </div>
       </div>
     {/each}
