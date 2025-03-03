@@ -21,93 +21,105 @@
         showCopyConfirmation = false;
       }, 2000);
     }
-  </script>
+
+    function fillSearchInputAndSubmit(query: string) {
+      const input = document.querySelector('input[name=searchQuery]') as HTMLInputElement;
+      if (input) {
+        input.value = query;
+        const form = input.closest('form') as HTMLFormElement;
+        if (form) {
+          form.submit();
+        }
+      }
+    }
+</script>
   
-  <div class="grid gap-6 p-4">
-    {#each matches as match, index}
-      <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-800">
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-4">
-            <h1 class="text-2xl font-bold text-black dark:text-white">{match.company}</h1>
-            <div class="flex gap-3">
-              <button 
-                onclick={() => openDialog(index)}
-                class="text-black hover:text-gray-700 dark:text-white dark:hover:text-gray-300 text-sm flex items-center gap-1 transition-colors bg-blue-100 dark:bg-blue-900 px-3 py-1 rounded-lg"
-              >
-                <span>Apply</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </button>
-              <a href={match.website} target="_blank" class="text-black hover:text-gray-700 dark:text-white dark:hover:text-gray-300 text-sm flex items-center gap-1 transition-colors">
-                <span>Visit</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
-            </div>
-          </div>
-          
-          <div class="flex flex-wrap gap-4 mb-4">
-            <div class="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-              <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Batch</p>
-              <p class="font-medium text-black dark:text-white">{match.batch}</p>
-            </div>
-            <div class="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-              <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Sector</p>
-              <p class="font-medium text-black dark:text-white">{match.sector}</p>
-            </div>
-            <div class="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
-              <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Size</p>
-              <p class="font-medium text-black dark:text-white">{match.size}</p>
-            </div>
-          </div>
-          
-          <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">{match.short_summary}</p>
-          
-          <div class="flex flex-wrap gap-2">
-            {#each match.tags.split(',') as tag}
-              <span class="px-2 py-1 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200 text-xs font-medium rounded-full">{tag.trim()}</span>
-            {/each}
+<div class="grid gap-6 p-4">
+  {#each matches as match, index}
+    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-800">
+      <div class="p-6">
+        <div class="flex justify-between items-start mb-4">
+          <h1 class="text-2xl font-bold text-black dark:text-white">{match.company}</h1>
+          <div class="flex gap-3">
+            <button 
+              onclick={() => openDialog(index)}
+              class="text-black dark:text-white hover:text-[#FF6600] text-sm flex items-center gap-1 transition-colors bg-[#FF6600] px-3 py-1 rounded-lg"
+            >
+              <span>Apply</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </button>
+            <a href={match.website} target="_blank" class="text-black dark:text-white hover:text-[#FF6600] text-sm flex items-center gap-1 transition-colors">
+              <span>Visit</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </div>
         </div>
+        
+        <div class="flex flex-wrap gap-4 mb-4">
+          <div class="px-3 py-2 bg-[#FF6600] rounded-lg">
+            <p class="text-xs text-white uppercase tracking-wider">Batch</p>
+            <p class="font-medium text-black dark:text-white">{match.batch}</p>
+          </div>
+          <div class="px-3 py-2 bg-[#FF6600] rounded-lg">
+            <p class="text-xs text-white uppercase tracking-wider">Sector</p>
+            <p class="font-medium text-black dark:text-white">{match.sector}</p>
+          </div>
+          <div class="px-3 py-2 bg-[#FF6600] rounded-lg">
+            <p class="text-xs text-white uppercase tracking-wider">Size</p>
+            <p class="font-medium text-black dark:text-white">{match.size}</p>
+          </div>
+        </div>
+        
+        <p class="text-black dark:text-white mb-4 line-clamp-3">{match.short_summary}</p>
+        
+        <div class="flex flex-wrap gap-2">
+          {#each match.tags.split(',') as tag}
+            <span class="px-2 py-1 bg-[#FF6600] text-white text-xs font-medium rounded-full">{tag.trim()}</span>
+          {/each}
+        </div>
       </div>
-      
-      {#if openDialogId === index}
-        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div class="bg-white dark:bg-gray-900 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="p-6">
-              <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-black dark:text-white">Apply To {match.company}</h2>
-                <button 
-                  onclick={closeDialog}
-                  class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              
-              <div class="mb-4">
-                <ol class="list-decimal pl-5 mb-4">
-                  <li class="text-gray-600 dark:text-gray-300 mb-2">Find someone's email address at the company. CEO or CTO ideally.</li>
-                  <li class="text-gray-600 dark:text-gray-300 mb-2">Copy this prompt into an LLM (ChatGPT and Grok work best for me) to generate a cold email:</li>
-                </ol>
-                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg relative">
-                  <pre class="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-wrap">Write a professional email applying for an internship at {match.company}, a {match.sector} company. 
+    </div>
+    
+    {#if openDialogId === index}
+      <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-bold text-black dark:text-white">Apply To {match.company}</h2>
+              <!-- svelte-ignore a11y_consider_explicit_label -->
+              <button 
+                onclick={closeDialog}
+                class="text-gray-500 hover:text-[#FF6600]"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            <div class="mb-4">
+              <ol class="list-decimal pl-5 mb-4">
+                <li class="text-black dark:text-white mb-2">Find someone's email address at the company. CEO or CTO ideally.</li>
+                <li class="text-black dark:text-white mb-2">Copy this prompt into an LLM (ChatGPT and Grok work best for me) to generate a cold email:</li>
+              </ol>
+              <div class="bg-[#FF6600] p-4 rounded-lg relative">
+                <pre class="text-sm text-white whitespace-pre-wrap">Write a professional email applying for an internship at {match.company}, a {match.sector} company. 
 
 Consider the following details:
 - Company information: {match.summary.trim() === '' ? match.short_summary : match.summary}
 - Relevant technologies/areas: {match.tags}
 
 The email should be concise, professional, and highlight why I would be a good fit for this company specifically based on their focus areas.</pre>
-                </div>
               </div>
-              
-              <div class="flex justify-end gap-3">
-                <button 
-                  onclick={() => copyToClipboard(`Write a professional email applying for an internship at ${match.company}, a ${match.sector} company. 
+            </div>
+            
+            <div class="flex justify-end gap-3">
+              <button 
+                onclick={() => copyToClipboard(`Write a professional email applying for an internship at ${match.company}, a ${match.sector} company. 
 
 Include the following details:
 - Company information: ${match.short_summary}
@@ -115,25 +127,25 @@ Include the following details:
 - Relevant technologies/areas: ${match.tags}
 
 The email should be concise, professional, and highlight why I would be a good fit for this company specifically based on their focus areas.`)}
-                  class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium relative"
-                  title="Copy to clipboard"
-                >
-                  {#if showCopyConfirmation}
-                    Copied!
-                  {:else}
-                    Copy
-                  {/if}
-                </button>
-                <button 
-                  onclick={closeDialog}
-                  class="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors"
-                >
-                  Close
-                </button>
-              </div>
+                class="px-4 py-2 bg-[#FF6600] hover:bg-[#e65c00] text-white rounded-lg transition-colors text-sm font-medium relative"
+                title="Copy to clipboard"
+              >
+                {#if showCopyConfirmation}
+                  Copied!
+                {:else}
+                  Copy
+                {/if}
+              </button>
+              <button 
+                onclick={closeDialog}
+                class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-black dark:text-white rounded-lg transition-colors"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
-      {/if}
-    {/each}
-  </div>
+      </div>
+    {/if}
+  {/each}
+</div>

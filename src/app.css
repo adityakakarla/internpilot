@@ -1,1 +1,21 @@
 @import 'tailwindcss';
+@keyframes highlight {
+    0% {
+      transform: translateX(-200%) rotate(30deg);
+    }
+    100% {
+      transform: translateX(200%) rotate(30deg);
+    }
+  }
+
+  .animate-highlight {
+    animation: highlight 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+
+/* Global styles */
+html, body {
+  @apply bg-gray-50 dark:bg-gray-900;
+  min-height: 100vh;
+}
+
