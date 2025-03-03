@@ -20,7 +20,7 @@
         <h1 class="text-5xl font-bold text-black dark:text-white mb-4">Internpilot</h1>
         <p class="text-xl text-gray-700 dark:text-gray-300">
           Startups are the best place to learn. <br/>
-          We've built a system to help you find YC-backed startups to work for.
+          We've built a system to help you find active YC startups to work for this summer.
         </p>
       </div>
   
