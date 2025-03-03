@@ -92,6 +92,7 @@
           <div class="p-6">
             <div class="flex justify-between items-center mb-4">
               <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">Apply To {match.company}</h2>
+              <!-- svelte-ignore a11y_consider_explicit_label -->
               <button 
                 onclick={closeDialog}
                 class="text-gray-500 hover:text-[#FF6600] dark:hover:text-orange-500 transition-colors"

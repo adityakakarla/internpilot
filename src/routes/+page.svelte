@@ -6,6 +6,36 @@
 
     let { form } = $props();
     
+    let searchError = $state<string | null>(null);
+    
+    function validateAndSubmit(event: Event) {
+      event.preventDefault();
+      const form = event.target as HTMLFormElement;
+      const searchQuery = (form.elements.namedItem('searchQuery') as HTMLInputElement).value.trim();
+      
+      // Clear previous error
+      searchError = null;
+      
+      // Validate query
+      if (!searchQuery) {
+        searchError = 'Please enter a search term';
+        return;
+      }
+      
+      if (searchQuery.length < 2) {
+        searchError = 'Search term must be at least 2 characters';
+        return;
+      }
+      
+      if (searchQuery.length > 250) {
+        searchError = 'Search term must be less than 250 characters';
+        return;
+      }
+      
+      // If validation passes, submit the form
+      form.submit();
+    }
+
     function fillSearchInputAndSubmit(query: string) {
       const input = document.querySelector('input[name=searchQuery]') as HTMLInputElement;
       if (input) {
@@ -136,26 +166,35 @@
         </div>
 
         <!-- Search Form -->
-        <form method="POST" class="w-full max-w-3xl mx-auto mb-16">
+        <form 
+          method="POST" 
+          class="w-full max-w-3xl mx-auto mb-16" 
+          onsubmit={validateAndSubmit}>
           <div class="relative group">
             <div class="absolute inset-0 bg-gradient-to-r from-[#FF6600] to-orange-500 rounded-xl blur opacity-75 transition duration-200"></div>
             <div class="relative flex items-center">
               <input
-                class="w-full p-4 pl-12 pr-32 rounded-xl bg-white dark:bg-gray-900 border border-transparent shadow-md text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none focus:border-[#FF6600] dark:focus:border-orange-500 transition-all duration-200 text-base cursor-text"
+                class="w-full p-4 pl-12 pr-32 rounded-xl bg-white dark:bg-gray-900 border border-transparent shadow-md text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none focus:border-[#FF6600] dark:focus:border-orange-500 transition-all duration-200 text-base cursor-text {searchError ? 'border-red-500' : ''}"
                 type="text"
                 placeholder="Search startups..."
                 aria-label="Search startups"
-                name="searchQuery">
+                name="searchQuery"
+                minlength="2"
+                maxlength="250"
+                required>
               <svg class="absolute left-4 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <button
-                class="absolute right-1 bg-gradient-to-r from-[#FF6600] to-orange-500 text-white py-2.5 px-6 rounded-lg transition-all duration-200 font-medium shadow-sm text-base cursor-pointer"
+                class="absolute right-1 bg-gradient-to-r from-[#FF6600] to-orange-500 text-white py-2.5 px-6 rounded-lg transition-all duration-200 font-medium shadow-sm text-base cursor-pointer hover:from-[#e65c00] hover:to-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
                 type="submit">
                 Search
               </button>
             </div>
           </div>
+          {#if searchError}
+            <div class="mt-2 text-red-500 text-sm">{searchError}</div>
+          {/if}
         </form>
       
         <!-- Example Searches -->
@@ -251,33 +290,46 @@
 
   @keyframes scroll-left {
     0% {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translate3d(-50%, 0, 0);
     }
   }
 
   @keyframes scroll-right {
     0% {
-      transform: translateX(-50%);
+      transform: translate3d(-50%, 0, 0);
     }
     100% {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
   }
 
   .animate-scroll-left {
     animation: scroll-left 40s linear infinite;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   .animate-scroll-right {
     animation: scroll-right 40s linear infinite;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
-  /* Remove hover pause for continuous movement */
+  /* Remove hover pause and ensure smooth animation */
   .animate-scroll-left:hover,
   .animate-scroll-right:hover {
     animation-play-state: running;
+  }
+
+  /* Add container properties to prevent layout shifts */
+  .overflow-hidden {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 </style>
