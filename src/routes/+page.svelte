@@ -1,6 +1,17 @@
 <script lang="ts">
     import Results from "$lib/components/Results.svelte";
     let { form } = $props();
+    
+    function fillSearchInputAndSubmit(query: string) {
+      const input = document.querySelector('input[name=searchQuery]') as HTMLInputElement;
+      if (input) {
+        input.value = query;
+        const form = input.closest('form') as HTMLFormElement;
+        if (form) {
+          form.submit();
+        }
+      }
+    }
   </script>
   
   <div class="min-h-screen bg-white dark:bg-black p-6 md:p-12">
@@ -13,7 +24,7 @@
         </p>
       </div>
   
-      <form method="POST" class="w-full max-w-xl mx-auto mb-12">
+      <form method="POST" class="w-full max-w-xl mx-auto mb-6">
         <div class="relative">
           <input
             class="w-full p-4 pl-6 pr-20 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-md text-black dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-all duration-200"
@@ -28,6 +39,35 @@
           </button>
         </div>
       </form>
+      
+      <!-- Sample prompts section - only show when no results are displayed -->
+      {#if !form?.success && !form?.error}
+        <div class="w-full max-w-xl mx-auto mb-12">
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Try searching for:</p>
+          <div class="flex flex-wrap gap-2">
+            <button 
+              class="text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1.5 rounded-lg transition-colors duration-200"
+              onclick={() => fillSearchInputAndSubmit('LLM coding startups')}>
+              LLM coding startups
+            </button>
+            <button 
+              class="text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1.5 rounded-lg transition-colors duration-200"
+              onclick={() => fillSearchInputAndSubmit('Fintech startups building credit card stuff')}>
+              Fintech startups building credit card stuff
+            </button>
+            <button 
+              class="text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1.5 rounded-lg transition-colors duration-200"
+              onclick={() => fillSearchInputAndSubmit('Healthcare startups in the dentistry space')}>
+              Healthcare startups in the dentistry space
+            </button>
+            <button 
+              class="text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1.5 rounded-lg transition-colors duration-200"
+              onclick={() => fillSearchInputAndSubmit('Government SaaS companies')}>
+              Government SaaS companies
+            </button>
+          </div>
+        </div>
+      {/if}
       
       {#if form?.success}
         <div class="mb-6">
