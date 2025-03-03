@@ -1,0 +1,9 @@
+{
+  "name": "Internpilot",
+  "short_name": "Internpilot",
+  "description": "Find and explore YC-backed startups to work for. Search through companies with detailed information about batch, size, sector, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4F46E5"
+} 
