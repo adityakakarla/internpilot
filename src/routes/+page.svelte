@@ -1,5 +1,8 @@
 <script lang="ts">
     import Results from "$lib/components/Results.svelte";
+    import { goto } from '$app/navigation';
+    import "../app.css";
+
     let { form } = $props();
     
     function fillSearchInputAndSubmit(query: string) {
@@ -7,85 +10,168 @@
       if (input) {
         input.value = query;
         const form = input.closest('form') as HTMLFormElement;
-        if (form) {
-          form.submit();
-        }
+        if (form) form.submit();
       }
     }
-  </script>
-  
-  <div class="min-h-screen bg-white dark:bg-black p-6 md:p-12">
-    <div class="max-w-5xl mx-auto">
-      <div class="mb-12 text-center">
-        <h1 class="text-5xl font-bold text-black dark:text-white mb-4">Internpilot</h1>
-        <p class="text-xl text-gray-700 dark:text-gray-300">
-          Startups are the best place to learn. <br/>
-          We've built a system to help you find active YC startups to work for this summer.
-        </p>
-      </div>
-  
-      <form method="POST" class="w-full max-w-xl mx-auto mb-6">
-        <div class="relative">
-          <input
-            class="w-full p-4 pl-6 pr-20 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-md text-black dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-all duration-200"
-            type="text"
-            placeholder="Search startups..."
-            aria-label="Search startups"
-            name="searchQuery">
+
+    function goToHome() {
+      goto('/');
+    }
+
+    const EXAMPLE_SEARCHES = [
+      'LLM coding startups',
+      'Fintech startups building credit card stuff',
+      'Healthcare startups in the dentistry space',
+      'Government SaaS companies'
+    ];
+
+    const FEATURES = [
+      {
+        icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+        text: '500+ Active Startups'
+      },
+      {
+        icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+        text: 'Real-time Updates'
+      },
+      {
+        icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+        text: 'Smart Search'
+      }
+    ];
+</script>
+
+<div class="min-h-screen bg-gradient-to-br from-white to-orange-50 dark:from-gray-900 dark:to-black relative">
+  <!-- Background pattern -->
+  <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDBNIDAgMjAgTCA0MCAyMCBNIDIwIDAgTCAyMCA0MCBNIDAgMzAgTCA0MCAzMCBNIDMwIDAgTCAzMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMC4yIiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-50 dark:opacity-20 pointer-events-none"></div>
+
+  <div class="relative">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
           <button
-            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black py-2 px-5 rounded-lg transition-colors duration-200 font-medium"
-            type="submit">
-            Search
+            class="text-gray-700 dark:text-gray-200 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+            onclick={goToHome}>
+            <div class="flex items-center space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span class="font-medium">Home</span>
+            </div>
           </button>
+          <a 
+            href="https://ycombinator.com" 
+            target="_blank" 
+            class="flex items-center space-x-1 text-gray-600 dark:text-gray-300 hover:text-[#FF6600] transition-colors">
+            <span>Y Combinator</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
         </div>
-      </form>
-      
-      <!-- Sample prompts section - only show when no results are displayed -->
-      {#if !form?.success && !form?.error}
-        <div class="w-full max-w-xl mx-auto mb-12">
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Try searching for:</p>
-          <div class="flex flex-wrap gap-2">
-            <button 
-              class="text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1.5 rounded-lg transition-colors duration-200"
-              onclick={() => fillSearchInputAndSubmit('LLM coding startups')}>
-              LLM coding startups
-            </button>
-            <button 
-              class="text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1.5 rounded-lg transition-colors duration-200"
-              onclick={() => fillSearchInputAndSubmit('Fintech startups building credit card stuff')}>
-              Fintech startups building credit card stuff
-            </button>
-            <button 
-              class="text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1.5 rounded-lg transition-colors duration-200"
-              onclick={() => fillSearchInputAndSubmit('Healthcare startups in the dentistry space')}>
-              Healthcare startups in the dentistry space
-            </button>
-            <button 
-              class="text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1.5 rounded-lg transition-colors duration-200"
-              onclick={() => fillSearchInputAndSubmit('Government SaaS companies')}>
-              Government SaaS companies
-            </button>
-          </div>
-        </div>
-      {/if}
-      
-      {#if form?.success}
-        <div class="mb-6">
-          <div class="flex items-center mb-8">
-            <h2 class="text-2xl font-bold text-black dark:text-white">Search Results for</h2>
-            <span class="ml-2 px-3 py-1 bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-lg font-medium">"{form.query}"</span>
-          </div>
-          <Results matches={form.matches}/>
-        </div>
-      {/if}
-      {#if form?.error}
-      <div class="mb-6">
-        <div class="flex items-center mb-8">
-          <h2 class="text-2xl font-bold text-center w-full text-black dark:text-white">
-            {form.errorMessage}
-        </h2>
-    </div>
       </div>
-      {/if}
-    </div>
+    </nav>
+
+    <main class="pt-24 pb-12 px-6 md:px-12">
+      <div class="max-w-7xl mx-auto">
+        <!-- Hero Section -->
+        <div class="mb-16 text-center max-w-4xl mx-auto">
+          <div class="relative inline-block mb-4">
+            <h1 class="text-6xl md:text-7xl font-bold bg-gradient-to-r from-[#FF6600] to-orange-500 text-transparent bg-clip-text">
+              Internpilot
+            </h1>
+            <div class="absolute inset-0 overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 rotate-[30deg] translate-x-[-200%] animate-highlight"></div>
+            </div>
+          </div>
+          
+          <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 font-light mb-8">
+            Startups are the best place to learn. <br/>
+            <span class="text-[#FF6600] font-normal">Find active YC startups to work for this summer.</span>
+          </p>
+          
+          <!-- Features -->
+          <div class="flex flex-col md:flex-row items-center justify-center gap-6 text-sm text-gray-600 dark:text-gray-400">
+            {#each FEATURES as feature}
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-[#FF6600]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={feature.icon} />
+                </svg>
+                <span>{feature.text}</span>
+              </div>
+            {/each}
+          </div>
+        </div>
+
+        <!-- Search Form -->
+        <form method="POST" class="w-full max-w-3xl mx-auto mb-16">
+          <div class="relative group">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#FF6600] to-orange-500 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-200 scale-[0.98] group-hover:scale-100"></div>
+            <div class="relative flex items-center">
+              <input
+                class="w-full p-6 pl-14 pr-36 rounded-2xl bg-white dark:bg-gray-900 border-2 border-transparent shadow-xl text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none focus:border-[#FF6600] dark:focus:border-orange-500 transition-all duration-200 text-lg"
+                type="text"
+                placeholder="Search startups..."
+                aria-label="Search startups"
+                name="searchQuery">
+              <svg class="absolute left-5 w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <button
+                class="absolute right-2 bg-gradient-to-r from-[#FF6600] to-orange-500 hover:from-orange-500 hover:to-[#FF6600] text-white py-4 px-8 rounded-xl transition-all duration-200 font-medium shadow-lg text-lg"
+                type="submit">
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+      
+        <!-- Example Searches -->
+        {#if !form?.success && !form?.error}
+          <div class="w-full max-w-3xl mx-auto">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 text-center">Try searching for:</p>
+            <div class="flex flex-wrap justify-center gap-3">
+              {#each EXAMPLE_SEARCHES as prompt}
+                <button 
+                  class="text-sm bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-full transition-all duration-200 shadow-md hover:shadow-lg border border-gray-100 dark:border-gray-700 hover:border-[#FF6600] dark:hover:border-[#FF6600]"
+                  onclick={() => fillSearchInputAndSubmit(prompt)}>
+                  {prompt}
+                </button>
+              {/each}
+            </div>
+          </div>
+        {/if}
+      
+        <!-- Search Results -->
+        {#if form?.success}
+          <div class="mt-16">
+            <div class="flex items-center justify-center mb-12">
+              <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Results for</h2>
+              <span class="ml-3 px-4 py-1.5 bg-gradient-to-r from-[#FF6600] to-orange-500 text-white rounded-full font-medium shadow-lg">"{form.query}"</span>
+            </div>
+            <Results matches={form.matches}/>
+          </div>
+        {/if}
+
+        <!-- Error State -->
+        {#if form?.error}
+          <div class="mt-16">
+            <div class="flex items-center justify-center">
+              <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-200">
+                {form.errorMessage}
+              </h2>
+            </div>
+          </div>
+        {/if}
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-gray-800 mt-12">
+      <div class="max-w-7xl mx-auto py-8 px-6 md:px-12 text-center text-sm text-gray-600 dark:text-gray-400">
+        Built with ❤️ for YC startup interns • Not affiliated with Y Combinator
+      </div>
+    </footer>
   </div>
+</div>
