@@ -108,8 +108,8 @@
                 <li class="text-gray-700 dark:text-gray-300 mb-2">Find someone's email address at the company. CEO or CTO ideally.</li>
                 <li class="text-gray-700 dark:text-gray-300 mb-2">Copy this prompt into an LLM (ChatGPT and Grok work best for me) to generate a cold email:</li>
               </ol>
-              <div class="bg-gradient-to-r from-[#FF6600] to-orange-500 p-4 rounded-lg relative shadow-sm">
-                <pre class="text-sm text-white/90 whitespace-pre-wrap">Write a professional email applying for an internship at {match.company}, a {match.sector} company. 
+              <div class="bg-gray-200 dark:bg-gray-700 p-4 rounded-lg relative shadow-sm">
+                <pre class="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">Write a professional email applying for an internship at {match.company}, a {match.sector} company. 
 
 Consider the following details:
 - Company information: {match.summary.trim() === '' ? match.short_summary : match.summary}
@@ -129,7 +129,7 @@ Include the following details:
 - Relevant technologies/areas: ${match.tags}
 
 The email should be concise, professional, and highlight why I would be a good fit for this company specifically based on their focus areas.`)}
-                class="px-4 py-2 bg-gradient-to-r from-[#FF6600] to-orange-500 hover:from-[#e65c00] hover:to-orange-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm relative"
+                class="px-4 py-2 bg-gradient-to-r from-[#FF6600] to-orange-500 text-white rounded-lg text-sm font-medium shadow-sm relative"
                 title="Copy to clipboard"
               >
                 {#if showCopyConfirmation}
