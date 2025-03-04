@@ -2,8 +2,6 @@
     import Results from "$lib/components/Results.svelte";
     import { goto } from '$app/navigation';
     import "../app.css";
-    import { onMount } from 'svelte';
-
     let { form } = $props();
     
     let searchError = $state<string | null>(null);
@@ -102,7 +100,7 @@
   <title>Internpilot</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gradient-to-br from-white to-orange-50 dark:from-gray-900 dark:to-black relative flex flex-col">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 bg-gradient-to-br from-white to-orange-50 dark:from-gray-900 dark:to-black relative flex flex-col">
   <!-- Background pattern -->
   <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDBNIDAgMjAgTCA0MCAyMCBNIDIwIDAgTCAyMCA0MCBNIDAgMzAgTCA0MCAzMCBNIDMwIDAgTCAzMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMC4yIiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-50 dark:opacity-20 pointer-events-none"></div>
 
@@ -205,10 +203,10 @@
               <!-- Top row - moving left -->
               <div class="relative overflow-hidden">
                 <!-- Left fade -->
-                <div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-orange-50/100 via-orange-50/50 to-transparent dark:from-black/100 dark:via-black/50 to-transparent z-10"></div>
+                <div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-orange-50/100 via-orange-50/50 dark:from-black/100 dark:via-black/50 to-transparent z-10"></div>
                 <!-- Right fade -->
-                <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-orange-50/100 via-orange-50/50 to-transparent dark:from-black/100 dark:via-black/50 to-transparent z-10"></div>
-                <div class="flex animate-scroll-left">
+                <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-orange-50/100 via-orange-50/50 dark:from-black/100 dark:via-black/50 to-transparent z-10"></div>
+                <div class="flex animate-scroll-left scrollbar-hide">
                   {#each DOUBLED_TOP_SEARCHES as prompt}
                     <button 
                       class="group relative text-sm whitespace-nowrap bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm text-gray-800 dark:text-gray-200 px-6 py-3 transition-all duration-300 mx-4 cursor-pointer shadow-[0_2px_8px_-3px_rgba(0,0,0,0.1)] hover:shadow-[0_4px_12px_-3px_rgba(0,0,0,0.2)] rounded-lg border-2 border-[#FF6600]/30 dark:border-orange-500/30"
@@ -225,10 +223,10 @@
               <!-- Bottom row - moving right -->
               <div class="relative overflow-hidden">
                 <!-- Left fade -->
-                <div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-orange-50/100 via-orange-50/50 to-transparent dark:from-black/100 dark:via-black/50 to-transparent z-10"></div>
+                <div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-orange-50/100 via-orange-50/50 dark:from-black/100 dark:via-black/50 to-transparent z-10"></div>
                 <!-- Right fade -->
-                <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-orange-50/100 via-orange-50/50 to-transparent dark:from-black/100 dark:via-black/50 to-transparent z-10"></div>
-                <div class="flex animate-scroll-right">
+                <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-orange-50/100 via-orange-50/50 dark:from-black/100 dark:via-black/50 to-transparent z-10"></div>
+                <div class="flex animate-scroll-right scrollbar-hide">
                   {#each DOUBLED_BOTTOM_SEARCHES as prompt}
                     <button 
                       class="group relative text-sm whitespace-nowrap bg-white/20 dark:bg-gray-800/20 backdrop-blur-sm text-gray-800 dark:text-gray-200 px-6 py-3 transition-all duration-300 mx-4 cursor-pointer shadow-[0_2px_8px_-3px_rgba(0,0,0,0.1)] hover:shadow-[0_4px_12px_-3px_rgba(0,0,0,0.2)] rounded-lg border-2 border-[#FF6600]/30 dark:border-orange-500/30"
@@ -277,59 +275,3 @@
     </footer>
   </div>
 </div>
-
-<style>
-  /* Hide scrollbar but keep functionality */
-  .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
-  }
-
-  @keyframes scroll-left {
-    0% {
-      transform: translate3d(0, 0, 0);
-    }
-    100% {
-      transform: translate3d(-50%, 0, 0);
-    }
-  }
-
-  @keyframes scroll-right {
-    0% {
-      transform: translate3d(-50%, 0, 0);
-    }
-    100% {
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
-  .animate-scroll-left {
-    animation: scroll-left 40s linear infinite;
-    transform: translate3d(0, 0, 0);
-    will-change: transform;
-    backface-visibility: hidden;
-  }
-
-  .animate-scroll-right {
-    animation: scroll-right 40s linear infinite;
-    transform: translate3d(0, 0, 0);
-    will-change: transform;
-    backface-visibility: hidden;
-  }
-
-  /* Remove hover pause and ensure smooth animation */
-  .animate-scroll-left:hover,
-  .animate-scroll-right:hover {
-    animation-play-state: running;
-  }
-
-  /* Add container properties to prevent layout shifts */
-  .overflow-hidden {
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-  }
-</style>

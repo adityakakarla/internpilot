@@ -1,4 +1,16 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@layer base {
+  html, body {
+    background-color: #F9FAFB;  /* gray-50 */
+    min-height: 100vh;
+  }
+  
+  :root[class~="dark"] html, :root[class~="dark"] body {
+    background-color: #111827;  /* gray-900 */
+  }
+}
+
 @keyframes highlight {
     0% {
       transform: translateX(-200%) rotate(30deg);
@@ -6,16 +18,62 @@
     100% {
       transform: translateX(200%) rotate(30deg);
     }
+}
+
+.animate-highlight {
+  animation: highlight 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translate3d(0, 0, 0);
   }
-
-  .animate-highlight {
-    animation: highlight 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  100% {
+    transform: translate3d(-50%, 0, 0);
   }
+}
 
+@keyframes scroll-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
 
-/* Global styles */
-html, body {
-  @apply bg-gray-50 dark:bg-gray-900;
-  min-height: 100vh;
+.animate-scroll-left {
+  animation: scroll-left 40s linear infinite;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.animate-scroll-right {
+  animation: scroll-right 40s linear infinite;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Remove hover pause and ensure smooth animation */
+.animate-scroll-left:hover,
+.animate-scroll-right:hover {
+  animation-play-state: running;
+}
+
+/* Add container properties to prevent layout shifts */
+.overflow-hidden {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
